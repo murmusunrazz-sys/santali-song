@@ -1,0 +1,66 @@
+<input type="text" id="songName" placeholder="Song Name">
+<input type="text" id="songFile" placeholder="Song File Path e.g. songs/mysong.mp3">
+<button onclick="addSong()">Add Song</button>
+
+<script>
+let songs = [
+    { name: "Song 1", file: "songs/song1.mp3" }
+];
+
+function addSong() {
+    const name = document.getElementById('songName').value;
+    const file = document.getElementById('songFile').value;
+    if(name && file){
+        songs.push({ name, file });
+        updateList();
+    }
+}
+
+function updateList() {
+    const songList = document.getElementById('songs');
+    songList.innerHTML = "";
+    songs.forEach(song => {
+        const li = document.createElement("li");
+        li.textContent = song.name;
+        li.onclick = () => {
+            document.getElementById("audioPlayer").src = song.file;
+            document.getElementById("audioPlayer").play();
+        }
+        songList.appendChild(li);
+    });
+}
+
+// Initialize
+updateList();
+</script><!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Song Website</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>🎵 santali song downloding</h1>
+        <h2>song-list</h2>
+    </header>
+
+    <main>
+        <div class="song-list">
+            <h2>Available Songs</h2>
+            <ul id="songs">
+                <!-- Songs will show here -->
+            </ul>
+        </div>
+
+        <div class="player">
+            <audio id="audioPlayer" controls>
+                Your browser does not support the audio element.
+            </audio>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
